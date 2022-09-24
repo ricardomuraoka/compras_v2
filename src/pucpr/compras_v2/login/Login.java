@@ -3,6 +3,7 @@ package pucpr.compras_v2.login;
 import pucpr.compras_v2.Cadastro;
 import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Produto;
+import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.menus.MenuInicial;
 import pucpr.compras_v2.usuarios.Admin;
 import pucpr.compras_v2.usuarios.Cliente;
@@ -42,13 +43,13 @@ public class Login {
         return valida;
     }
 
-    public static void trocaUsuario(Map<Produto, Integer> est) throws InterruptedException {
+    public static void trocaUsuario(Map<Produto, Integer> est, Historico hist) throws InterruptedException {
         Usuario novoUsuario = Login.login();
         if (validaUsuario(novoUsuario) == true) {
-            MenuInicial.menu(novoUsuario, new CarrinhoDeCompras((Cliente) novoUsuario),est);
+            MenuInicial.menu(novoUsuario, new CarrinhoDeCompras(novoUsuario),est, hist);
         } else {
             System.out.println("Usuário não cadastrado");
-            Cadastro.desejaCadastrar(est);
+            Cadastro.desejaCadastrar(est, hist);
         }
     }
 }

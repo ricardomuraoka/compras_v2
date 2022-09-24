@@ -1,6 +1,7 @@
 package pucpr.compras_v2;
 
 import pucpr.compras_v2.estoque.Produto;
+import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
@@ -10,7 +11,7 @@ import java.util.Scanner;
 import static pucpr.compras_v2.login.Login.trocaUsuario;
 
 public class Cadastro {
-    public static void cadastraCliente(Map<Produto, Integer> est) throws InterruptedException {
+    public static void cadastraCliente(Map<Produto, Integer> est, Historico hist) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("Insira seu nome: ");
         String name = in.nextLine();
@@ -23,7 +24,7 @@ public class Cadastro {
         String cidadeUsuario = in.nextLine();
         novo.setCidade(cidadeUsuario);
         adicionaCliente(novo);
-        trocaUsuario(est);
+        trocaUsuario(est, hist);
     }
 
     public static void adicionaCliente(Usuario novo) {
@@ -35,17 +36,17 @@ public class Cadastro {
     }
 
 
-    public static void desejaCadastrar(Map<Produto, Integer> est) throws InterruptedException {
+    public static void desejaCadastrar(Map<Produto, Integer> est, Historico hist) throws InterruptedException {
         System.out.println("Deseja realizar seu cadastro? ");
         Scanner in = new Scanner(System.in);
         System.out.println("1 - SIM");
         System.out.println("2 - NÃO");
         int option = Integer.parseInt(in.nextLine());
-        if (option == 1) Cadastro.cadastraCliente(est);
+        if (option == 1) Cadastro.cadastraCliente(est, hist);
         else if (option == 2) System.exit(0);
         else {
             System.out.println("Digite uma opção corretamente");
-            desejaCadastrar(est);
+            desejaCadastrar(est, hist);
         }
     }
 }

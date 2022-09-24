@@ -3,6 +3,7 @@ package pucpr.compras_v2.menus;
 import pucpr.compras_v2.Sobre;
 import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Produto;
+import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.login.Login;
 import pucpr.compras_v2.usuarios.Usuario;
 
@@ -17,7 +18,7 @@ public final class MenuInicial {
         throw new UnsupportedOperationException("Classe de utilidade não pode ser instanciada.");
     }
 
-    public static void menu(Usuario usuario, CarrinhoDeCompras carrinho, Map<Produto, Integer> est) throws InterruptedException {
+    public static void menu(Usuario usuario, CarrinhoDeCompras carrinho, Map<Produto, Integer> est, Historico hist) throws InterruptedException {
         Usuario logado = usuario;
         Scanner in = new Scanner(System.in);
         System.out.println("ESCOLHA UMA OPÇÃO");
@@ -34,15 +35,15 @@ public final class MenuInicial {
         try {
         switch(option) {
             case 1:
-                MenuCompras.menuCompras(logado, carrinho, est);
+                MenuCompras.menuCompras(logado, carrinho, est, hist);
                 break;
             case 2:
-                Login.trocaUsuario(est);
+                Login.trocaUsuario(est, hist);
                 break;
             case 3:
                 System.out.println(new Sobre());
                 Thread.sleep(3000);
-                MenuInicial.menu(logado, carrinho, est);
+                MenuInicial.menu(logado, carrinho, est, hist);
                 break;
             case 4:
                 System.exit(0);
@@ -54,7 +55,7 @@ public final class MenuInicial {
                 System.out.println("Escolha uma das opções: ");
         }
         } catch (NumberFormatException e) {
-            MenuInicial.menu(logado, carrinho, est);
+            MenuInicial.menu(logado, carrinho, est, hist);
         }
     }
 }

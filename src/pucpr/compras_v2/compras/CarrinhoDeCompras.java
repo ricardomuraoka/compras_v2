@@ -3,9 +3,11 @@ package pucpr.compras_v2.compras;
 
 
 import pucpr.compras_v2.estoque.Produto;
+import pucpr.compras_v2.historico.Historico;
+import pucpr.compras_v2.usuarios.Admin;
 import pucpr.compras_v2.usuarios.Cliente;
+import pucpr.compras_v2.usuarios.Usuario;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,12 +18,13 @@ import static pucpr.compras_v2.estoque.Produto.getProdutos;
 public class CarrinhoDeCompras {
     private Map<Produto, Integer> produtosNoCarrinho = new LinkedHashMap<Produto, Integer>();
     private double totalCompras;
-    private Cliente clienteCarrinho;
+    private Usuario clienteCarrinho;
 
 
-    public CarrinhoDeCompras(Cliente atual) {
+    public CarrinhoDeCompras(Usuario atual) {
         clienteCarrinho = atual;
     }
+
 
 
     public CarrinhoDeCompras adicionaProduto(CarrinhoDeCompras car) throws InterruptedException {
@@ -71,48 +74,33 @@ public class CarrinhoDeCompras {
     }
 
 
-    public static void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est) {
-        var estoque = est;
-        for (Map.Entry<Produto, Integer> entry : car.getProdutosNoCarrinho().entrySet()) {
-            int qtdeProdutoCarrinho = entry.getValue();
-            int qtdeProdutoEstoque =
-            estoque.get(estoque.indexOf(produtoCarrinho)).setQuantidade(qtdeProdutoEstoque - qtdeProdutoCarrinho);
-            produtosNoCarrinho.get(produtosNoCarrinho.indexOf(produtoCarrinho)).setQuantidade(qtdeProdutoCarrinho);
+    public static void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) {
+        for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
+            int qtdeProdutoCarrinho = produtosCarrinho.getValue();
         }
-        Cliente.adicionaCompra(produtosNoCarrinho);
-        produtosNoCarrinho = new ArrayList<>();
+        hist.adicionarCompra(car);
     }
 
     public Map<Produto, Integer> getProdutosNoCarrinho() {
         return produtosNoCarrinho;
     }
 
-    public void setProdutosNoCarrinho(Map<Produto, Integer> produtosNoCarrinho) {
-        this.produtosNoCarrinho = produtosNoCarrinho;
-    }
 
 
     public double getTotalCompras() {
         return totalCompras;
     }
 
-    public void setTotalCompras(double totalCompras) {
-        this.totalCompras = totalCompras;
-    }
 
-    public Cliente getClienteCarrinho() {
+    public Usuario getClienteCarrinho() {
         return clienteCarrinho;
-    }
-
-    public void setClienteCarrinho(Cliente clienteCarrinho) {
-        this.clienteCarrinho = clienteCarrinho;
     }
 
 
 
     @Override
     public String toString() {
-        return getCarrinhoProdutos() + "\nValor Total: R$" + totalCompras();
+        return "\n Cliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras;
     }
 }
 
