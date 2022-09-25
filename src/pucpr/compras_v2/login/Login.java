@@ -36,14 +36,18 @@ public class Login {
 
     public static boolean validaUsuario(Usuario usuario, List<Cliente> clientes) throws InterruptedException {
         boolean valida = false;
-        for (Object cli : clientes) {
-            if (usuario == null) {
-                valida = false;
-            } else if (usuario.equals(cli)) {
-                valida = true;
-            } else {
-                valida = false;
-            }
+        Admin admin = new Admin();
+        if (usuario == null) {
+            valida = false;
+        } else if ((usuario.getCpf().equals(admin.getCpf())) && (usuario.getSenha().equals(admin.getSenha()))) {
+            valida = true;
+        } else {
+            for (Object cli : clientes)
+                if (usuario.equals(cli)) {
+                    valida = true;
+                } else {
+                    valida = false;
+                }
         }
         return valida;
     }
