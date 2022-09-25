@@ -27,11 +27,11 @@ public class Cadastro {
         trocaUsuario(est, hist);
     }
 
-    public static void adicionaCliente(Usuario novo) {
+    public static void adicionaCliente(Cliente novo) {
         if (Cliente.getClienteList().contains(novo)) {
             System.out.println("Este cliente já existe");
         } else {
-            Cliente.getClienteList().add((Cliente) novo);
+            Cliente.getClienteList().add(novo);
         }
     }
 

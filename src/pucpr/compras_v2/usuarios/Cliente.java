@@ -1,13 +1,8 @@
 package pucpr.compras_v2.usuarios;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-
-import static pucpr.compras_v2.login.Login.trocaUsuario;
 
 /**
  Classe Cliente

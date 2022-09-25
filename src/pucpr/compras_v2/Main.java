@@ -9,7 +9,6 @@ import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import static pucpr.compras_v2.estoque.Estoque.getEstoque;
-import static pucpr.compras_v2.estoque.Produto.getProdutos;
 import static pucpr.compras_v2.login.Login.validaUsuario;
 
 public class Main {

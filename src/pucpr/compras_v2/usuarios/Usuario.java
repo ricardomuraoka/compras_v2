@@ -9,7 +9,6 @@ import java.util.List;
  */
 public abstract class Usuario {
     private List<Usuario> usuarios = new ArrayList<>();
-
     private String cpf;
     private String senha;
 

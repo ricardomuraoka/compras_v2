@@ -53,6 +53,7 @@ public class MenuCompras {
             case 3:
                 carrinho.adicionaProduto(carrinhoAtual);
                 MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+
                 break;
             case 4:
                 System.out.println(carrinhoAtual);

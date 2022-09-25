@@ -2,9 +2,9 @@ package pucpr.compras_v2.compras;
 
 
 
-import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
+import pucpr.compras_v2.menus.MenuCompras;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.LinkedHashMap;
@@ -16,18 +16,24 @@ import static pucpr.compras_v2.estoque.Produto.getProdutos;
 
 
 public class CarrinhoDeCompras {
-    private Map<Produto, Integer> produtosNoCarrinho = new LinkedHashMap<Produto, Integer>();
+    private Map<Produto, Integer> produtosNoCarrinho = new LinkedHashMap<>();
     private double totalCompras;
-    private Usuario clienteCarrinho;
+    private final Usuario clienteCarrinho;
 
 
     public CarrinhoDeCompras(Usuario atual) {
         clienteCarrinho = atual;
     }
 
+    public CarrinhoDeCompras(CarrinhoDeCompras another) {
+        this.produtosNoCarrinho = another.produtosNoCarrinho;
+        this.totalCompras = another.totalCompras;
+        this.clienteCarrinho = another.clienteCarrinho;
+    }
 
 
-    public CarrinhoDeCompras adicionaProduto(CarrinhoDeCompras car) throws InterruptedException {
+
+    public void adicionaProduto(CarrinhoDeCompras car) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("Qual produto gostaria de adicionar? \n");
         String itemProduto = in.nextLine();
@@ -46,7 +52,6 @@ public class CarrinhoDeCompras {
                     }
                 }
         }
-        return car;
     }
 
     public static void buscaProduto(String busca) {
@@ -75,18 +80,24 @@ public class CarrinhoDeCompras {
 
 
 
-    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) {
-        for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
-            int qtdeProdutoCarrinho = produtosCarrinho.getValue();
-            var i = getEstoque();
-            for (Map.Entry<Produto, Integer> produtoEstoque: est.entrySet()) {
-                if (produtosCarrinho.getKey().equals(produtoEstoque.getKey())) {
-                    est.put(produtoEstoque.getKey(), produtoEstoque.getValue() - qtdeProdutoCarrinho);
+    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) throws InterruptedException {
+        if (car == null) {
+            System.out.println("Carrinho vazio, nada para mostrar");
+            Thread.sleep(3000);
+            MenuCompras.menuCompras(this.clienteCarrinho, null, est, hist);
+        } else {
+            for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
+                int qtdeProdutoCarrinho = produtosCarrinho.getValue();
+                for (Map.Entry<Produto, Integer> produtoEstoque : est.entrySet()) {
+                    if (produtosCarrinho.getKey().equals(produtoEstoque.getKey())) {
+                        est.put(produtoEstoque.getKey(), produtoEstoque.getValue() - qtdeProdutoCarrinho);
+                    }
                 }
             }
+            CarrinhoDeCompras another = new CarrinhoDeCompras(car);
+            hist.adicionarCompra(another);
         }
-        hist.adicionarCompra(car);
-        produtosNoCarrinho = new LinkedHashMap<Produto, Integer>();
+        produtosNoCarrinho = new LinkedHashMap<>();
         totalCompras = 0;
     }
 
@@ -98,26 +109,17 @@ public class CarrinhoDeCompras {
         this.totalCompras = totalCompras;
     }
 
-    public void setProdutosNoCarrinho(Map<Produto, Integer> produtosNoCarrinho) {
-        this.produtosNoCarrinho = produtosNoCarrinho;
-    }
-
-
-
-    public double getTotalCompras() {
-        return totalCompras;
-    }
-
-
-    public Usuario getClienteCarrinho() {
-        return clienteCarrinho;
-    }
-
 
 
     @Override
     public String toString() {
-        return "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "Carrinho: " + produtosNoCarrinho;
+        String carrinho;
+        if (produtosNoCarrinho == null) {
+            carrinho = "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "\nCarrinho Vazio";
+        } else {
+            carrinho = "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "\nCarrinho:" + produtosNoCarrinho;
+        }
+        return carrinho;
     }
 }
 
