@@ -5,9 +5,11 @@ package pucpr.compras_v2.compras;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.menus.MenuCompras;
+import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -80,11 +82,11 @@ public class CarrinhoDeCompras {
 
 
 
-    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) throws InterruptedException {
+    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         if (car == null) {
             System.out.println("Carrinho vazio, nada para mostrar");
             Thread.sleep(3000);
-            MenuCompras.menuCompras(this.clienteCarrinho, null, est, hist);
+            MenuCompras.menuCompras(this.clienteCarrinho, null, est, hist, clientes);
         } else {
             for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
                 int qtdeProdutoCarrinho = produtosCarrinho.getValue();

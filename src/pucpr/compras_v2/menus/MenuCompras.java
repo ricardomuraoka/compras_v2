@@ -4,8 +4,10 @@ import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
+import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ public class MenuCompras {
     }
 
 
-    public static void menuCompras(Usuario usuario, CarrinhoDeCompras carrinho, Map<Produto, Integer> est, Historico hist) throws InterruptedException {
+    public static void menuCompras(Usuario usuario, CarrinhoDeCompras carrinho, Map<Produto, Integer> est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Usuario logado = usuario;
         CarrinhoDeCompras carrinhoAtual = carrinho;
         Scanner in = new Scanner(System.in);
@@ -39,7 +41,7 @@ public class MenuCompras {
                 System.out.println("Qual produto deseja buscar?");
                 String buscaProduto = in.nextLine();
                 CarrinhoDeCompras.buscaProduto(buscaProduto);
-                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist, clientes);
                 break;
             case 2:
                 final int pageSize = 5;
@@ -48,11 +50,11 @@ public class MenuCompras {
                     System.out.println(getPageProduct(getProdutos(), i, pageSize));
                     Thread.sleep(3000);
                 }
-                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist, clientes);
                 break;
             case 3:
                 carrinho.adicionaProduto(carrinhoAtual);
-                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist, clientes);
 
                 break;
             case 4:
@@ -61,20 +63,20 @@ public class MenuCompras {
                 System.out.println("2 - DIGITE 2 - FECHAR COMPRAS");
                 int opt = Integer.parseInt(in.nextLine());
                     if (opt == 1) {
-                        MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+                        MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist, clientes);
                     } else if (opt == 2) {
-                        carrinhoAtual.fecharCompra(carrinhoAtual, est, hist);
+                        carrinhoAtual.fecharCompra(carrinhoAtual, est, hist, clientes);
                 } else {
                         System.out.println("Escolha umas das opções");
                     }
-                    MenuInicial.menu(usuario, carrinhoAtual, est, hist);
+                    MenuInicial.menu(usuario, carrinhoAtual, est, hist, clientes);
                 break;
             case 5:
-                MenuInicial.menu(logado, carrinhoAtual, est, hist);
+                MenuInicial.menu(logado, carrinhoAtual, est, hist, clientes);
                 break;
             default:
                 System.out.println("Escolha uma das opções: ");
-                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist);
+                MenuCompras.menuCompras(usuario, carrinhoAtual, est, hist, clientes);
                 break;
         }
     }
