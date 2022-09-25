@@ -8,14 +8,16 @@ import pucpr.compras_v2.menus.MenuInicial;
 import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
+import static pucpr.compras_v2.estoque.Estoque.getEstoque;
+import static pucpr.compras_v2.estoque.Produto.getProdutos;
 import static pucpr.compras_v2.login.Login.validaUsuario;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        var estoque = Estoque.getEstoque();
+        var estoque = getEstoque();
         var clientes = Cliente.getClienteList();
         var historico = new Historico();
-
+        System.out.println(estoque);
         Usuario logado = Login.login();
         if (validaUsuario(logado) == true) {
             var carrinho = new CarrinhoDeCompras(logado);

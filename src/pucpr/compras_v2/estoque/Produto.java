@@ -45,7 +45,7 @@ public class Produto {
     @Override
     public String toString() {
         return "\nProduto: " + nome + ", preco: R$"
-                + preco;
+                + preco + " ";
     }
 
     public static <Produto> List<Produto> getPageProduct(List<Produto> produtos, int page, int pageSize) {

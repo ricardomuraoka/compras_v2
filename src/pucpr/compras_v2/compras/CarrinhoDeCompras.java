@@ -2,16 +2,16 @@ package pucpr.compras_v2.compras;
 
 
 
+import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
-import pucpr.compras_v2.usuarios.Admin;
-import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static pucpr.compras_v2.estoque.Estoque.getEstoque;
 import static pucpr.compras_v2.estoque.Produto.getProdutos;
 
 
@@ -34,18 +34,17 @@ public class CarrinhoDeCompras {
         System.out.println("Quantos itens gostaria de adicionar? \n");
         int qtdeProdutos = Integer.parseInt(in.nextLine());
         buscaProduto(itemProduto);
-        for (Produto produtoEstoque : getProdutos()) {
-            if (produtoEstoque.getNome().equals(itemProduto)) {
-                for (Map.Entry<Produto, Integer> entry : car.getProdutosNoCarrinho().entrySet()) {
+        for (Map.Entry<Produto, Integer> entry : getEstoque().entrySet()) {
+            if (entry.getKey().getNome().equals(itemProduto)) {
+
                     if (entry.getValue() < qtdeProdutos) {
                         System.out.println("Não temos essa quantidade em estoque");
                         Thread.sleep(3000);
-                        car.adicionaProduto(car);
                     } else {
-                        produtosNoCarrinho.put(produtoEstoque, qtdeProdutos);
+                        car.produtosNoCarrinho.put(entry.getKey(), qtdeProdutos);
+                        setTotalCompras(totalCompras(car));
                     }
                 }
-            }
         }
         return car;
     }
@@ -74,15 +73,33 @@ public class CarrinhoDeCompras {
     }
 
 
-    public static void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) {
+
+
+    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist) {
         for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
             int qtdeProdutoCarrinho = produtosCarrinho.getValue();
+            var i = getEstoque();
+            for (Map.Entry<Produto, Integer> produtoEstoque: est.entrySet()) {
+                if (produtosCarrinho.getKey().equals(produtoEstoque.getKey())) {
+                    est.put(produtoEstoque.getKey(), produtoEstoque.getValue() - qtdeProdutoCarrinho);
+                }
+            }
         }
         hist.adicionarCompra(car);
+        produtosNoCarrinho = new LinkedHashMap<Produto, Integer>();
+        totalCompras = 0;
     }
 
     public Map<Produto, Integer> getProdutosNoCarrinho() {
         return produtosNoCarrinho;
+    }
+
+    public void setTotalCompras(double totalCompras) {
+        this.totalCompras = totalCompras;
+    }
+
+    public void setProdutosNoCarrinho(Map<Produto, Integer> produtosNoCarrinho) {
+        this.produtosNoCarrinho = produtosNoCarrinho;
     }
 
 
@@ -100,7 +117,7 @@ public class CarrinhoDeCompras {
 
     @Override
     public String toString() {
-        return "\n Cliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras;
+        return "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "Carrinho: " + produtosNoCarrinho;
     }
 }
 
