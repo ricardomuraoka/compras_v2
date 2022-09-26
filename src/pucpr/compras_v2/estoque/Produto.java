@@ -1,6 +1,5 @@
 package pucpr.compras_v2.estoque;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +20,6 @@ public class Produto {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public Double getPreco() {
         return preco;
     }
@@ -37,18 +32,15 @@ public class Produto {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     @Override
     public String toString() {
-        return "\nProduto: " + nome + ", preco: R$"
-                + preco + " ";
+        return String.format("%nProduto: %s, Preço: R$%.2f ", nome, preco);
     }
 
-    public static <Produto> List<Produto> getPageProduct(List<Produto> produtos, int page, int pageSize) {
+
+
+    public static List<Produto> getPageProduct(List<Produto> produtos, int page, int pageSize) {
         if(pageSize <= 0 || page <= 0) {
             throw new IllegalArgumentException("invalid page size: " + pageSize);
         }

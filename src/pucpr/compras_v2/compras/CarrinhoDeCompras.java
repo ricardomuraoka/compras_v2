@@ -2,6 +2,7 @@ package pucpr.compras_v2.compras;
 
 
 
+import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.menus.MenuCompras;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static pucpr.compras_v2.estoque.Estoque.getEstoque;
 import static pucpr.compras_v2.estoque.Produto.getProdutos;
 
 
@@ -35,19 +35,21 @@ public class CarrinhoDeCompras {
 
 
 
-    public void adicionaProduto(CarrinhoDeCompras car) throws InterruptedException {
+    public void adicionaProduto(CarrinhoDeCompras car, Estoque est) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("Qual produto gostaria de adicionar? \n");
         String itemProduto = in.nextLine();
         System.out.println("Quantos itens gostaria de adicionar? \n");
         int qtdeProdutos = Integer.parseInt(in.nextLine());
         buscaProduto(itemProduto);
-        for (Map.Entry<Produto, Integer> entry : getEstoque().entrySet()) {
+        for (Map.Entry<Produto, Integer> entry : est.getItensEstoque().entrySet()) {
             if (entry.getKey().getNome().equals(itemProduto)) {
-
                     if (entry.getValue() < qtdeProdutos) {
-                        System.out.println("Não temos essa quantidade em estoque");
+                        car.produtosNoCarrinho.put(entry.getKey(), entry.getValue());
+                        System.out.printf("Não temos essa quantidade em estoque, ajustamos automaticamente para %d," +
+                                "quantidade que temos no momento %n",entry.getValue() );
                         Thread.sleep(3000);
+
                     } else {
                         car.produtosNoCarrinho.put(entry.getKey(), qtdeProdutos);
                         setTotalCompras(totalCompras(car));
@@ -82,20 +84,21 @@ public class CarrinhoDeCompras {
 
 
 
-    public void fecharCompra(CarrinhoDeCompras car, Map<Produto, Integer> est, Historico hist, List<Cliente> clientes) throws InterruptedException {
-        if (car == null) {
+    public void fecharCompra(CarrinhoDeCompras car, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+        if (car.getProdutosNoCarrinho().size() == 0) {
             System.out.println("Carrinho vazio, nada para mostrar");
             Thread.sleep(3000);
-            MenuCompras.menuCompras(this.clienteCarrinho, null, est, hist, clientes);
+            MenuCompras.menuCompras(car.clienteCarrinho, null, est, hist, clientes);
         } else {
             for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
                 int qtdeProdutoCarrinho = produtosCarrinho.getValue();
-                for (Map.Entry<Produto, Integer> produtoEstoque : est.entrySet()) {
-                    if (produtosCarrinho.getKey().equals(produtoEstoque.getKey())) {
-                        est.put(produtoEstoque.getKey(), produtoEstoque.getValue() - qtdeProdutoCarrinho);
+                for (Map.Entry<Produto, Integer> produtoEstoque : est.getItensEstoque().entrySet()) {
+                     if (produtosCarrinho.getKey().equals(produtoEstoque.getKey()) &&
+                                produtoEstoque.getValue() >= produtosCarrinho.getValue()) {
+                            est.getItensEstoque().put(produtoEstoque.getKey(), produtoEstoque.getValue() - qtdeProdutoCarrinho);
+                        }
                     }
                 }
-            }
             CarrinhoDeCompras another = new CarrinhoDeCompras(car);
             hist.adicionarCompra(another);
         }

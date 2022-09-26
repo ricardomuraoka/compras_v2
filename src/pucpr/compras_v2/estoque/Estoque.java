@@ -1,5 +1,7 @@
 package pucpr.compras_v2.estoque;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Estoque {
+
     private Map<Produto, Integer> itensEstoque = new LinkedHashMap<>();
 
 
@@ -27,13 +30,12 @@ public class Estoque {
 
 
 
-    public static Map<Produto, Integer> getEstoque()
-    {
-        Random rn = new Random();
+    public static Estoque criaEstoque() throws NoSuchAlgorithmException {
+        Random rand = SecureRandom.getInstanceStrong();
         var produtos = Produto.getProdutos();
-        Map<Produto, Integer> estoque = new HashMap<>();
+        Estoque estoque = new Estoque();
         for (Produto prod : produtos) {
-            estoque.put(prod, rn.nextInt(5) + 2);
+            estoque.itensEstoque.put(prod, rand.nextInt(5) + 2);
         }
         return estoque;
     }
@@ -45,9 +47,8 @@ public class Estoque {
 
     @Override
     public String toString() {
-        String mapAsString = itensEstoque.keySet().stream()
+        return itensEstoque.keySet().stream()
                 .map(key -> key + "=" + itensEstoque.get(key))
                 .collect(Collectors.joining(", ", "{", "}"));
-        return mapAsString;
     }
 }

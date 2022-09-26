@@ -8,21 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Historico {
-    private List<CarrinhoDeCompras> historico = new ArrayList<>();
-
-    public Historico() {
-    }
+    private List<CarrinhoDeCompras> historicoCompras = new ArrayList<>();
 
     public void adicionarCompra(CarrinhoDeCompras car) {
-        historico.add(car);
+        historicoCompras.add(car);
     }
 
-    public List<CarrinhoDeCompras> getHistorico() {
-        return historico;
+    public List<CarrinhoDeCompras> getHistoricoCompras() {
+        return historicoCompras;
     }
 
     public static double RelatorioTotalCompras(Historico his){
-        var hist = his.getHistorico();
+        var hist = his.getHistoricoCompras();
         double total = 0;
         for (CarrinhoDeCompras entry: hist) {
             for (Map.Entry<Produto, Integer> entry2 : entry.getProdutosNoCarrinho().entrySet()) {
@@ -33,7 +30,7 @@ public class Historico {
     }
 
     public static int RelatorioNumeroCompras(Historico his) {
-        var hist = his.getHistorico();
+        var hist = his.getHistoricoCompras();
         int i = 0;
         for (CarrinhoDeCompras entry: hist) {
             i++;
@@ -41,8 +38,12 @@ public class Historico {
         return i;
     }
 
-    public static double RelatorioMediaComprado(Historico his) {
-        double media = Historico.RelatorioTotalCompras(his) / Historico.RelatorioNumeroCompras(his);
-        return media;
+    public static double RelatorioMediaComprado(Historico his) throws ArithmeticException {
+        try {
+            return Historico.RelatorioTotalCompras(his) / Historico.RelatorioNumeroCompras(his);
+        }
+        catch(Exception e) {
+            throw new ArithmeticException("Não pode ser divido");
+        }
     }
 }

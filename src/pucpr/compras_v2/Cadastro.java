@@ -1,18 +1,19 @@
 package pucpr.compras_v2;
 
-import pucpr.compras_v2.estoque.Produto;
+import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
-import pucpr.compras_v2.usuarios.Usuario;
+
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import static pucpr.compras_v2.login.Login.trocaUsuario;
 
 public class Cadastro {
-    public static void cadastraCliente(Map<Produto, Integer> est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+    private Cadastro() {throw new IllegalStateException("Utility class");}
+
+    public static void cadastraCliente(Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("Insira seu nome: ");
         String name = in.nextLine();
@@ -37,7 +38,7 @@ public class Cadastro {
     }
 
 
-    public static void desejaCadastrar(Map<Produto, Integer> est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+    public static void desejaCadastrar(Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         System.out.println("Deseja realizar seu cadastro? ");
         Scanner in = new Scanner(System.in);
         System.out.println("1 - SIM");

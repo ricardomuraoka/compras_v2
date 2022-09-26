@@ -1,7 +1,10 @@
 package pucpr.compras_v2.menus;
 
+import pucpr.compras_v2.compras.CarrinhoDeCompras;
+import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
+import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,12 +15,13 @@ public class MenuRelatorios {
         throw new UnsupportedOperationException("Classe de utilidade não pode ser instanciada.");
     }
 
-    public static void escolhaRelatorio(Historico hist) throws InterruptedException {
+    public static void escolhaRelatorio(Usuario usuario, CarrinhoDeCompras carrinho, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("1 - DIGITE 1 - RELATORIO DE CLIENTES");
         System.out.println("2 - DIGITE 2 - NUMERO DE COMPRAS");
         System.out.println("3 - DIGITE 3 - TOTAL COMPRADO");
         System.out.println("4 - DIGITE 4 - VALOR MÉDIO DE COMPRAS");
+        System.out.println("5 - DIGITE 5 - VOLTAR");
         int tipoRelatorio = Integer.parseInt(in.nextLine());
 
         if (tipoRelatorio == 1) {
@@ -27,19 +31,21 @@ public class MenuRelatorios {
                 System.out.println(getPageClient(Cliente.getClienteList(), i, pageSize));
                 Thread.sleep(3000);
             }
-            escolhaRelatorio(hist);
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 2) {
-            System.out.printf("Total de compras: %d\n", Historico.RelatorioNumeroCompras(hist));
-            escolhaRelatorio(hist);
+            System.out.printf("Total de compras: %d%n", Historico.RelatorioNumeroCompras(hist));
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 3) {
-            System.out.printf("Valor total em compras: %.2f\n", Historico.RelatorioTotalCompras(hist));
-            escolhaRelatorio(hist);
+            System.out.printf("Valor total em compras: %.2f%n", Historico.RelatorioTotalCompras(hist));
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 4) {
-            System.out.printf("Valor médio em compras: %.2f\n", Historico.RelatorioMediaComprado(hist));
-            escolhaRelatorio(hist);
+            System.out.printf("Valor médio em compras: %.2f%n", Historico.RelatorioMediaComprado(hist));
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
+        } else if (tipoRelatorio ==5){
+                MenuInicial.menu(usuario, carrinho, est, hist, clientes);
         } else {
             System.out.println("Escolha uma das opções");
-            escolhaRelatorio(hist);
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         }
     }
 
@@ -49,7 +55,7 @@ public class MenuRelatorios {
 
 
 
-    public static <Cliente> List<Cliente> getPageClient(List<Cliente> clientes, int page, int pageSize) {
+    public static List<Cliente> getPageClient(List<Cliente> clientes, int page, int pageSize) {
         if(pageSize <= 0 || page <= 0) {
             throw new IllegalArgumentException("invalid page size: " + pageSize);
         }
