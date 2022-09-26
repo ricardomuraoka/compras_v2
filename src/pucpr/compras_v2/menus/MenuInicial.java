@@ -11,7 +11,6 @@ import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 

@@ -114,15 +114,23 @@ public class CarrinhoDeCompras {
         this.totalCompras = totalCompras;
     }
 
+    public StringBuilder produtosNoCarrinho() {
+        var str = new StringBuilder();
+        for (var i : produtosNoCarrinho.entrySet()) {
+            str.append(String.format("%nProduto: %-15s Preco: %-6.2f R$ Qtde: %-3d", i.getKey().getNome(), i.getKey().getPreco(), i.getValue()));
+        }
+        return str;
+    }
 
 
     @Override
     public String toString() {
         String carrinho;
-        if (produtosNoCarrinho == null) {
-            carrinho = "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "\nCarrinho Vazio";
+        if (produtosNoCarrinho.size() == 0) {
+            carrinho = String.format("%nCliente: %s Valor Total: R$%f%nCarrinho Vazio", clienteCarrinho, totalCompras);
         } else {
-            carrinho = "\nCliente: " + clienteCarrinho + "Valor Total: R$" + totalCompras + "\nCarrinho:" + produtosNoCarrinho;
+            carrinho = new StringBuilder().append(String.format("%nCliente: %sValor Total: R$%.2f%nCarrinho: ", clienteCarrinho, totalCompras))
+                    .append(produtosNoCarrinho()).toString();
         }
         return carrinho;
     }
