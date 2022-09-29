@@ -1,4 +1,4 @@
-package pucpr.compras_v2.menus;
+package pucpr.compras_v2.helpers;
 
 import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
@@ -11,11 +11,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuRelatorios {
-    private MenuRelatorios() {
-        throw new UnsupportedOperationException("Classe de utilidade não pode ser instanciada.");
+    public MenuRelatorios() {
     }
 
-    public static void escolhaRelatorio(Usuario usuario, CarrinhoDeCompras carrinho, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+    public void escolhaRelatorio(Usuario usuario, CarrinhoDeCompras carrinho, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("1 - DIGITE 1 - RELATORIO DE CLIENTES");
         System.out.println("2 - DIGITE 2 - NUMERO DE COMPRAS");
@@ -26,9 +25,9 @@ public class MenuRelatorios {
 
         if (tipoRelatorio == 1) {
             final int pageSize = 5;
-            final int pages = (Cliente.getClienteList().size() + pageSize - 1) / pageSize;
+            final int pages = (Cliente.criaClienteList().size() + pageSize - 1) / pageSize;
             for (int i = 1; i <= pages; i++) {
-                System.out.println(getPageClient(Cliente.getClienteList(), i, pageSize));
+                System.out.println(getPageClient(Cliente.criaClienteList(), i, pageSize));
                 Thread.sleep(3000);
             }
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
@@ -42,7 +41,7 @@ public class MenuRelatorios {
             System.out.printf("Valor médio em compras: %.2f%n", Historico.RelatorioMediaComprado(hist));
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio ==5){
-                MenuInicial.menu(usuario, carrinho, est, hist, clientes);
+            new MenuInicial().menu(usuario, carrinho, est, hist, clientes);
         } else {
             System.out.println("Escolha uma das opções");
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);

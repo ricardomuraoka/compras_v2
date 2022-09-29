@@ -5,7 +5,7 @@ package pucpr.compras_v2.compras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
-import pucpr.compras_v2.menus.MenuCompras;
+import pucpr.compras_v2.helpers.MenuCompras;
 import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
@@ -88,7 +88,7 @@ public class CarrinhoDeCompras {
         if (car.getProdutosNoCarrinho().size() == 0) {
             System.out.println("Carrinho vazio, nada para mostrar");
             Thread.sleep(3000);
-            MenuCompras.menuCompras(car.clienteCarrinho, null, est, hist, clientes);
+            new MenuCompras().menuCompras(car.getClienteCarrinho(), null, est, hist, clientes);
         } else {
             for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
                 int qtdeProdutoCarrinho = produtosCarrinho.getValue();
@@ -102,8 +102,8 @@ public class CarrinhoDeCompras {
             CarrinhoDeCompras another = new CarrinhoDeCompras(car);
             hist.adicionarCompra(another);
         }
-        produtosNoCarrinho = new LinkedHashMap<>();
-        totalCompras = 0;
+        this.produtosNoCarrinho = new LinkedHashMap<>();
+        this.totalCompras = 0;
     }
 
     public Map<Produto, Integer> getProdutosNoCarrinho() {
@@ -120,6 +120,10 @@ public class CarrinhoDeCompras {
             str.append(String.format("%nProduto: %-15s Preco: %-6.2f R$ Qtde: %-3d", i.getKey().getNome(), i.getKey().getPreco(), i.getValue()));
         }
         return str;
+    }
+
+    public Usuario getClienteCarrinho() {
+        return clienteCarrinho;
     }
 
 

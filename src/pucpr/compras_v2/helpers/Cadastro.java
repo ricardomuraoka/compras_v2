@@ -1,4 +1,4 @@
-package pucpr.compras_v2;
+package pucpr.compras_v2.helpers;
 
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
@@ -32,6 +32,7 @@ public class Cadastro {
     public static void adicionaCliente(Cliente novo, List<Cliente> clientes) {
         if (clientes.contains(novo)) {
             System.out.println("Este cliente já existe");
+
         } else {
             clientes.add(novo);
         }

@@ -39,7 +39,7 @@ public class Cliente extends Usuario {
         this.cidade = cidade;
     }
 
-    public static List<Cliente> getClienteList() {
+    public static List<Cliente> criaClienteList() {
         return Arrays.asList(
                 new Cliente("João", "123456", "123456"),
                 new Cliente("Márcio", "12", "12"),
@@ -58,7 +58,7 @@ public class Cliente extends Usuario {
 
     @Override
     public String toString() {
-        return "Cliente: " + name + "\n";
+        return String.format("Cliente: %s%n", getName());
     }
 
 

@@ -18,6 +18,7 @@ public class Historico {
         return historicoCompras;
     }
 
+
     public static double RelatorioTotalCompras(Historico his){
         var hist = his.getHistoricoCompras();
         double total = 0;
@@ -46,4 +47,6 @@ public class Historico {
             throw new ArithmeticException("Não pode ser divido");
         }
     }
+
+
 }

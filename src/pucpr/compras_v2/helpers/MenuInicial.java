@@ -1,9 +1,8 @@
-package pucpr.compras_v2.menus;
+package pucpr.compras_v2.helpers;
 
 import pucpr.compras_v2.Sobre;
 import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
-import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.login.Login;
 import pucpr.compras_v2.usuarios.Admin;
@@ -14,17 +13,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static pucpr.compras_v2.menus.MenuRelatorios.escolhaRelatorio;
+import static pucpr.compras_v2.login.Login.validaUsuario;
 
 /**
  * Classe utilitária menu
  */
-public final class MenuInicial {
-    private MenuInicial() {
-        throw new UnsupportedOperationException("Classe de utilidade não pode ser instanciada.");
+public class MenuInicial {
+
+    public MenuInicial() {
     }
 
-    public static void menu(Usuario usuario, CarrinhoDeCompras carrinho, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+    public void iniciaMenu(List<Cliente> clientes, Estoque estoque, Historico historico) throws InterruptedException {
+        Usuario logado = new Login().login(clientes);
+        if (validaUsuario(logado, clientes)) {
+            var carrinho = new CarrinhoDeCompras(logado);
+            new MenuInicial().menu(logado, carrinho, estoque, historico, clientes);
+        } else {
+            System.out.println("Usuário não cadastrado");
+            Cadastro.desejaCadastrar(estoque, historico, clientes);
+        }
+    }
+
+
+    public void menu(Usuario usuario, CarrinhoDeCompras carrinho, Estoque estoque, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         System.out.println("ESCOLHA UMA OPÇÃO");
         if (!Objects.equals(usuario.getClass(), Admin.class)) {
@@ -39,19 +50,19 @@ public final class MenuInicial {
         int option = Integer.parseInt(in.nextLine());
         try {
             switch (option) {
-                case 1 -> MenuCompras.menuCompras(usuario, carrinho, est, hist, clientes);
-                case 2 -> Login.trocaUsuario(est, hist, clientes);
+                case 1 -> new MenuCompras().menuCompras(usuario, carrinho, estoque, hist, clientes);
+                case 2 -> Login.trocaUsuario(estoque, hist, clientes);
                 case 3 -> {
                     System.out.println(new Sobre());
                     Thread.sleep(3000);
-                    MenuInicial.menu(usuario, carrinho, est, hist, clientes);
+                    new MenuInicial().menu(usuario, carrinho, estoque, hist, clientes);
                 }
                 case 4 -> System.exit(0);
-                case 5 -> escolhaRelatorio(usuario, carrinho, est, hist, clientes);
+                case 5 -> new MenuRelatorios().escolhaRelatorio(usuario, carrinho, estoque, hist, clientes);
                 default -> System.out.println("Escolha uma das opções: ");
             }
         } catch (NumberFormatException e) {
-            MenuInicial.menu(usuario, carrinho, est, hist, clientes);
+            new MenuInicial().menu(usuario, carrinho, estoque, hist, clientes);
         }
     }
 }

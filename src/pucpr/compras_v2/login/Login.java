@@ -1,10 +1,10 @@
 package pucpr.compras_v2.login;
 
-import pucpr.compras_v2.Cadastro;
+import pucpr.compras_v2.helpers.Cadastro;
 import pucpr.compras_v2.compras.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
-import pucpr.compras_v2.menus.MenuInicial;
+import pucpr.compras_v2.helpers.MenuInicial;
 import pucpr.compras_v2.usuarios.Admin;
 import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
@@ -17,6 +17,9 @@ public class Login {
     public Login() {
 
     }
+
+
+
     public Usuario login(List<Cliente> clientes) {
         Admin admin = new Admin();
         Scanner in = new Scanner(System.in);
@@ -55,7 +58,7 @@ public class Login {
         Login log = new Login();
         Usuario novoUsuario = log.login(clientes);
         if (validaUsuario(novoUsuario, clientes)) {
-            MenuInicial.menu(novoUsuario, new CarrinhoDeCompras(novoUsuario),est, hist, clientes);
+            new MenuInicial().menu(novoUsuario, new CarrinhoDeCompras(novoUsuario),est, hist, clientes);
         } else {
             System.out.println("Usuário não cadastrado");
             Cadastro.desejaCadastrar(est, hist, clientes);
