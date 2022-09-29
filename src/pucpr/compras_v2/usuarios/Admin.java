@@ -5,22 +5,23 @@ package pucpr.compras_v2.usuarios;
  */
 public class Admin extends Usuario {
     private static final String ADM = "admin";
+    private String cpf;
+    private String senha;
 
     public Admin() {
-        this.setCpf(ADM);
-        this.setSenha(ADM);
+        super(ADM, ADM);
+        this.cpf = ADM;
+        this.senha = ADM;
     }
 
 
-
-    @Override
     public String getCpf() {
-        return ADM;
+        return cpf;
     }
 
-    @Override
+
     public String getSenha() {
-        return ADM;
+        return cpf;
     }
 }
 

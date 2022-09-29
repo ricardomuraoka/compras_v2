@@ -13,14 +13,11 @@ public class Cliente extends Usuario {
 
 
     public Cliente(String name, String cpf, String senha) {
+        super(cpf, senha);
         this.name = name;
-        super.setCpf(cpf);
-        this.setSenha(senha);
     }
 
-    public Cliente() {
-        super();
-    }
+
 
 
     public String getName() {
