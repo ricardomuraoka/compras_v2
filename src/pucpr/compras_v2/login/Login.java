@@ -28,12 +28,12 @@ public class Login {
         System.out.println("Digite a senha: ");
         String psd = in.nextLine();
         Usuario usuarioLogin = null;
-        if ((userLogin.equals(admin.getCpf())) && (userLogin.equals(admin.getSenha()))) {
+        if ((userLogin.equals(admin.getCpf())) && (psd.equals(admin.getSenha()))) {
             usuarioLogin = admin;
         } else {
-            for (Usuario usuarioAtual : clientes) {
-                if (userLogin.equals(usuarioAtual.getCpf()) && psd.equals(usuarioAtual.getSenha())) {
-                    usuarioLogin = usuarioAtual;
+            for (Usuario usuario : clientes) {
+                if (userLogin.equals(usuario.getCpf()) && psd.equals(usuario.getSenha())) {
+                    usuarioLogin = usuario;
                 }
             }
         }
@@ -48,8 +48,14 @@ public class Login {
         } else if ((usuario.getCpf().equals(admin.getCpf())) && (usuario.getSenha().equals(admin.getSenha()))) {
             valida = true;
         } else {
-            for (Object cli : clientes)
-                valida = usuario.equals(cli);
+            for (Cliente cli : clientes)
+                if (usuario.getCpf().equals(cli.getCpf()) && usuario.getSenha().equals(cli.getSenha())) {
+                    valida = true;
+                    break;
+                } else {
+                    valida = false;
+                }
+
         }
         return valida;
     }

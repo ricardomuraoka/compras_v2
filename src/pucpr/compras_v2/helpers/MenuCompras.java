@@ -61,7 +61,7 @@ public class MenuCompras {
                 if (opt == 1) {
                     new MenuCompras().menuCompras(usuario, carrinho, est, hist, clientes);
                 } else if (opt == 2) {
-                    carrinho.fecharCompra(carrinho, est, hist, clientes);
+                    carrinho.fecharCompra(carrinho, est, hist, clientes, usuario);
                 } else {
                     System.out.println("Escolha umas das opções");
                 }

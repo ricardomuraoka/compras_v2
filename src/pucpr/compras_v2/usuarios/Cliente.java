@@ -1,5 +1,8 @@
 package pucpr.compras_v2.usuarios;
 
+import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,8 +11,13 @@ import java.util.List;
  Classe Cliente
  */
 public class Cliente extends Usuario {
+    private List<CarrinhoDeCompras> carrinhoCliente = new ArrayList<>();
     private String name;
     private String cidade;
+
+
+    public Cliente() {
+    }
 
 
     public Cliente(String name, String cpf, String senha) {
@@ -34,6 +42,22 @@ public class Cliente extends Usuario {
         this.cidade = cidade;
     }
 
+    @Override
+    public List<CarrinhoDeCompras> getCarrinhoCliente() {
+        return carrinhoCliente;
+    }
+
+    public void setCarrinhoCliente(List<CarrinhoDeCompras> carrinhoCliente) {
+        this.carrinhoCliente = carrinhoCliente;
+    }
+
+    @Override
+    public void adicionarCarrinho(CarrinhoDeCompras car) {
+        this.carrinhoCliente.add(car);
+    }
+
+
+
     public static List<Cliente> criaClienteList() {
         return Arrays.asList(
                 new Cliente("João", "547.135.570-99", "123456"),
@@ -44,8 +68,8 @@ public class Cliente extends Usuario {
                 new Cliente("Zé", "934.651.030-76", "17"),
                 new Cliente("Lucas", "465.001.450-62", "18"),
                 new Cliente("Dolores", "013.569.560-09", "19"),
-                new Cliente("Bárbara", "367.019.640-44", "20"),
-                new Cliente("ok", "048.080.870-81", "ok")
+                new Cliente("Bárbara", "20", "20"),
+                new Cliente("ok", "ok", "ok")
         );
     }
 

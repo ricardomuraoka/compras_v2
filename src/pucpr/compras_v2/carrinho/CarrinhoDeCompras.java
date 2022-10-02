@@ -84,7 +84,7 @@ public class CarrinhoDeCompras {
 
 
 
-    public void fecharCompra(CarrinhoDeCompras car, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
+    public void fecharCompra(CarrinhoDeCompras car, Estoque est, Historico hist, List<Cliente> clientes, Usuario logado) throws InterruptedException {
         if (car.getProdutosNoCarrinho().size() == 0) {
             System.out.println("Carrinho vazio, nada para mostrar");
             Thread.sleep(3000);
@@ -101,6 +101,7 @@ public class CarrinhoDeCompras {
                 }
             CarrinhoDeCompras another = new CarrinhoDeCompras(car);
             hist.adicionarCompra(another);
+            logado.adicionarCarrinho(another);
         }
         this.produtosNoCarrinho = new LinkedHashMap<>();
         this.totalCompras = 0;
