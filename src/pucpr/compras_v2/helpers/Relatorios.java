@@ -42,7 +42,7 @@ public class Relatorios {
 
     public double relatorioTotalComprasCliente(List<Cliente> clientes){
         Scanner in = new Scanner(System.in);
-        System.out.println("Digite o CPF para relatórios de clientes");
+        System.out.println("Digite o CPF para relatórios de cliente desejado");
         String busca = in.nextLine();
         var cliente = new Filtrar().filtrarCpf(clientes, busca);
         var carrinhos = cliente.getCarrinhoCliente();
@@ -60,7 +60,7 @@ public class Relatorios {
 
     public int relatorioNumeroComprasCliente(List<Cliente> clientes) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Digite o CPF para relatórios de clientes");
+        System.out.println("Digite o CPF para relatórios de cliente desejado");
         String busca = in.nextLine();
         var cliente = new Filtrar().filtrarCpf(clientes, busca);
         var carrinhos = cliente.getCarrinhoCliente();
@@ -74,7 +74,25 @@ public class Relatorios {
 
     public double relatorioMediaCompradoCliente(List<Cliente> clientes) throws ArithmeticException {
         try {
-            return relatorioTotalComprasCliente(clientes) / relatorioNumeroComprasCliente(clientes);
+            Scanner in = new Scanner(System.in);
+            System.out.println("Digite o CPF para relatórios de cliente desejado");
+            String busca = in.nextLine();
+            var cliente = new Filtrar().filtrarCpf(clientes, busca);
+            var carrinhos = cliente.getCarrinhoCliente();
+
+
+            double total = 0;
+            for (CarrinhoDeCompras entry: carrinhos) {
+                for (Map.Entry<Produto, Integer> entry2 : entry.getProdutosNoCarrinho().entrySet()) {
+                    total += entry2.getKey().getPreco() * entry2.getValue();
+                }
+            }
+
+            int i = 0;
+            for (CarrinhoDeCompras entry: carrinhos) {
+                i++;
+            }
+            return total / i;
         }
         catch(Exception e) {
             throw new ArithmeticException("Não pode ser divido");
