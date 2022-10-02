@@ -1,7 +1,7 @@
 package pucpr.compras_v2.helpers;
 
 import pucpr.compras_v2.Sobre;
-import pucpr.compras_v2.compras.CarrinhoDeCompras;
+import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.login.Login;
@@ -30,7 +30,7 @@ public class MenuInicial {
             new MenuInicial().menu(logado, carrinho, estoque, historico, clientes);
         } else {
             System.out.println("Usuário não cadastrado");
-            Cadastro.desejaCadastrar(estoque, historico, clientes);
+            new Cadastro().desejaCadastrar(estoque, historico, clientes);
         }
     }
 

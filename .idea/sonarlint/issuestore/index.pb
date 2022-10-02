@@ -6,4 +6,6 @@ H
 O
 src/pucpr/compras_v2/Sobre.java,2\1\21d6d93b26114bdd72a5bd75cc62f1c5607d92f2
 Y
-)src/pucpr/compras_v2/estoque/Produto.java,e\a\ea68e1247b75814632af2f510b1414368297e5be
+)src/pucpr/compras_v2/estoque/Estoque.java,3\0\30efba96c26e289a36b90cdb3b76ca1a8bdf4297
+Z
+*src/pucpr/compras_v2/usuarios/Usuario.java,b\a\ba576be23394f2e8a204d0c29b78162c10ffee97

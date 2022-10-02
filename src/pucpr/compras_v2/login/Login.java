@@ -1,7 +1,7 @@
 package pucpr.compras_v2.login;
 
 import pucpr.compras_v2.helpers.Cadastro;
-import pucpr.compras_v2.compras.CarrinhoDeCompras;
+import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.helpers.MenuInicial;
@@ -61,7 +61,7 @@ public class Login {
             new MenuInicial().menu(novoUsuario, new CarrinhoDeCompras(novoUsuario),est, hist, clientes);
         } else {
             System.out.println("Usuário não cadastrado");
-            Cadastro.desejaCadastrar(est, hist, clientes);
+            new Cadastro().desejaCadastrar(est, hist, clientes);
         }
     }
 }

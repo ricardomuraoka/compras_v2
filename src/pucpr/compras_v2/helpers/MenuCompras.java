@@ -1,6 +1,6 @@
 package pucpr.compras_v2.helpers;
 
-import pucpr.compras_v2.compras.CarrinhoDeCompras;
+import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;

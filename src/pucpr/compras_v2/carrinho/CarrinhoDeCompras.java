@@ -1,4 +1,4 @@
-package pucpr.compras_v2.compras;
+package pucpr.compras_v2.carrinho;
 
 
 

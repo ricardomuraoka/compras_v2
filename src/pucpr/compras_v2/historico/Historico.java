@@ -1,6 +1,6 @@
 package pucpr.compras_v2.historico;
 
-import pucpr.compras_v2.compras.CarrinhoDeCompras;
+import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Produto;
 
 import java.util.ArrayList;
