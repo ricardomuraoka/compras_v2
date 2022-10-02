@@ -51,6 +51,7 @@ public class Cliente extends Usuario {
         this.carrinhoCliente = carrinhoCliente;
     }
 
+
     @Override
     public void adicionarCarrinho(CarrinhoDeCompras car) {
         this.carrinhoCliente.add(car);

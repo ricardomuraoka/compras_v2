@@ -1,11 +1,17 @@
 package pucpr.compras_v2.usuarios;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Filtrar {
-    public Cliente filtrarCpf(List<Cliente> clientes, String cpf) {
+
+    /**
+     *
+     * @param clientes
+     * @param cpf
+     * @return client matching given CPF
+     */
+
+    public Cliente filtrarCpf(List<Cliente> clientes, String cpf) throws NullPointerException{
         return clientes.stream()
                 .filter(cli -> cli.getCpf().equals(cpf))
                 .toList()

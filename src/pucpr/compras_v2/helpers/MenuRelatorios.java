@@ -31,13 +31,19 @@ public class MenuRelatorios {
                 Thread.sleep(3000);
             } */
         if (tipoRelatorio == 1) {
-            System.out.printf("Total de compras: %d%n", new Relatorios().relatorioNumeroComprasCliente(clientes));
+            System.out.println("Digite o CPF para relatórios de cliente desejado");
+            String busca = in.nextLine();
+            System.out.printf("Total de compras: %d%n", new Relatorios().relatorioNumeroComprasCliente(clientes, busca));
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 2) {
-            System.out.printf("Valor total em compras: %.2f%n", new Relatorios().relatorioTotalComprasCliente(clientes));
+            System.out.println("Digite o CPF para relatórios de cliente desejado");
+            String busca = in.nextLine();
+            System.out.printf("Valor total em compras: %.2f%n", new Relatorios().relatorioTotalComprasCliente(clientes, busca));
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 3) {
-            System.out.printf("Valor médio em compras: %.2f%n", new Relatorios().relatorioMediaCompradoCliente(clientes));
+            System.out.println("Digite o CPF para relatórios de cliente desejado");
+            String busca = in.nextLine();
+            System.out.printf("Valor médio em compras: %.2f%n", new Relatorios().relatorioMediaCompradoCliente(clientes, busca));
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         } else if (tipoRelatorio == 4) {
             System.out.printf("Total de compras: %d%n", new Relatorios().relatorioNumeroCompras(hist));
