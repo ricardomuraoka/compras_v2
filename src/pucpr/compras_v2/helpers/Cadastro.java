@@ -19,7 +19,7 @@ public class Cadastro {
         String name = in.nextLine();
         System.out.println("Insira seu cpf: ");
         String cpf = in.nextLine();
-        if (new Cadastro().validaCPF(cpf) == true) {
+        if (new Cadastro().validaCPF(cpf)) {
             System.out.println("CPF válido");
         } else {
             System.out.println("CPF inválido");
@@ -59,7 +59,7 @@ public class Cadastro {
         }
     }
 
-    public boolean validaCPF(String CPF) {
+    public boolean validaCPF(String cpf) {
         /* Toda pessoa que se inscreve no Cadastro de Pessoas Físicas da Receita Federal do Brasil recebe um número de
         inscrição de onze dígitos decimais com a seguinte configuração: ABC.DEF.GHI-JK.
         1 - Os primeiros oito dígitos,
@@ -75,29 +75,31 @@ public class Cadastro {
         pela sequência 10, 9, 8, 7, 6, 5, 4, 3, 2 são contados a partir do segundo algarismo, sendo d1 o último
         algarismo. Se s é o resto da divisão por 11 das somas das multiplicações, então:
             * d2 é zero, se s for 0 ou 1; caso contrário, d2=11−s. */
-        if (CPF.contains(".")) {
-            CPF = CPF.replace(".", "");
-        }
-        if (CPF.contains("-")) {
-            CPF = CPF.replace("-", "");
+        if (cpf.contains(".") || cpf.contains("-")) {
+            cpf = cpf.replace(".", "");
+            cpf = cpf.replace("-", "");
         }
 
-
-        if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222") ||
-                CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555") ||
-                CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888") ||
-                CPF.equals("99999999999") || (CPF.length() != 11))
+        if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222") ||
+                cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555") ||
+                cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888") ||
+                cpf.equals("99999999999") || (cpf.length() != 11))
             return (false);
 
-        char dv1, dv2;
-        int soma, i, resto, digito, multiplicador;
+        char dv1;
+        char dv2;
+        int soma;
+        int i;
+        int resto;
+        int digito;
+        int multiplicador;
 
 
         try {
             soma = 0;
             multiplicador = 10;
             for (i = 0; i < 9; i++) {
-                digito = Integer.parseInt(String.valueOf(CPF.charAt(i)));
+                digito = Integer.parseInt(String.valueOf(cpf.charAt(i)));
                 soma = soma + (digito * multiplicador);
                 multiplicador = multiplicador - 1;
             }
@@ -111,7 +113,7 @@ public class Cadastro {
             soma = 0;
             multiplicador = 11;
             for (i = 0; i < 10; i++) {
-                digito = Integer.parseInt(String.valueOf(CPF.charAt(i)));
+                digito = Integer.parseInt(String.valueOf(cpf.charAt(i)));
                 soma = soma + (digito * multiplicador);
                 multiplicador = multiplicador - 1;
             }
@@ -121,11 +123,7 @@ public class Cadastro {
                 dv2 = '0';
             else
                 dv2 = Character.forDigit(resto, 10); //radix 10 is for decimal number
-
-            if ((dv1 == CPF.charAt(9)) && (dv2 == CPF.charAt(10)))
-                return (true);
-            else
-                return (false);
+            return (dv1 == cpf.charAt(9)) && (dv2 == cpf.charAt(10));
         } catch (InputMismatchException erro) {
             return (false);
         }
