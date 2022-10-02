@@ -1,8 +1,10 @@
 package pucpr.compras_v2;
 
+import pucpr.compras_v2.estoque.FiltrarProdutos;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.helpers.MenuInicial;
 import pucpr.compras_v2.usuarios.Cliente;
+import pucpr.compras_v2.usuarios.FiltrarCliente;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;

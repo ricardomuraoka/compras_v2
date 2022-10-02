@@ -3,6 +3,7 @@ package pucpr.compras_v2.carrinho;
 
 
 import pucpr.compras_v2.estoque.Estoque;
+import pucpr.compras_v2.estoque.FiltrarProdutos;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.helpers.MenuCompras;
@@ -41,7 +42,7 @@ public class CarrinhoDeCompras {
         String itemProduto = in.nextLine();
         System.out.println("Quantos itens gostaria de adicionar? \n");
         int qtdeProdutos = Integer.parseInt(in.nextLine());
-        buscaProduto(itemProduto);
+        new FiltrarProdutos().filtrarProdutos(est, itemProduto);
         for (Map.Entry<Produto, Integer> entry : est.getItensEstoque().entrySet()) {
             if (entry.getKey().getNome().equals(itemProduto)) {
                     if (entry.getValue() < qtdeProdutos) {
@@ -56,21 +57,6 @@ public class CarrinhoDeCompras {
                     }
                 }
         }
-    }
-
-    public static void buscaProduto(String busca) {
-        String resultadoBusca = "";
-        for (Produto produtoEstoque : getProdutos()) {
-            if (produtoEstoque.getNome().toLowerCase().contains(busca.toLowerCase())) {
-                resultadoBusca = ("Temos em estoque: " + produtoEstoque);
-                System.out.println(resultadoBusca);
-            }
-        }
-        if (resultadoBusca.equals("")) {
-            resultadoBusca = ("Não temos " + busca + " em estoque");
-            System.out.println(resultadoBusca);
-        }
-
     }
 
     public static Double totalCompras(CarrinhoDeCompras car) {

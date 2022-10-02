@@ -25,6 +25,12 @@ public class Cliente extends Usuario {
         this.name = name;
     }
 
+    public Cliente(String name, String cpf, String senha, String cidade) {
+        super(cpf, senha);
+        this.name = name;
+        this.cidade = cidade;
+    }
+
 
     public String getName() {
         return name;
@@ -61,15 +67,15 @@ public class Cliente extends Usuario {
 
     public static List<Cliente> criaClienteList() {
         return Arrays.asList(
-                new Cliente("João", "547.135.570-99", "123456"),
-                new Cliente("Márcio", "434.267.090-90", "12"),
+                new Cliente("Joao", "547.135.570-99", "123456"),
+                new Cliente("Marcio", "434.267.090-90", "12"),
                 new Cliente("Marina", "403.148.270-13", "13"),
                 new Cliente("Maria", "724.715.790-94", "14"),
                 new Cliente("Mariana", "404.882.260-82", "15"),
-                new Cliente("Zé", "934.651.030-76", "17"),
+                new Cliente("Ze", "934.651.030-76", "17"),
                 new Cliente("Lucas", "465.001.450-62", "18"),
                 new Cliente("Dolores", "013.569.560-09", "19"),
-                new Cliente("Bárbara", "20", "20"),
+                new Cliente("Barbara", "20", "20"),
                 new Cliente("ok", "ok", "ok")
         );
     }
@@ -78,7 +84,7 @@ public class Cliente extends Usuario {
 
     @Override
     public String toString() {
-        return String.format("Cliente: %s%n", getName());
+        return String.format("Cliente: %-15s CPF: %-20s Cidade: %-15s" , getName(), getCpf(), getCidade());
     }
 
 

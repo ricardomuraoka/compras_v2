@@ -4,6 +4,7 @@ import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
+import pucpr.compras_v2.usuarios.FiltrarCliente;
 import pucpr.compras_v2.usuarios.Usuario;
 
 import java.util.Collections;
@@ -20,16 +21,10 @@ public class MenuRelatorios {
         System.out.println("4 - DIGITE 4 - NUMERO DE COMPRAS");
         System.out.println("5 - DIGITE 5 - TOTAL COMPRADO");
         System.out.println("6 - DIGITE 6 - VALOR MÉDIO DE COMPRAS");
-        System.out.println("7 - DIGITE 7 - VOLTAR");
+        System.out.println("7 - DIGITE 7 - LISTA DE CLIENTES");
+        System.out.println("8 - DIGITE 8 - VOLTAR");
         int tipoRelatorio = Integer.parseInt(in.nextLine());
 
-        /* if (tipoRelatorio == 1) {
-            final int pageSize = 5;
-            final int pages = (Cliente.criaClienteList().size() + pageSize - 1) / pageSize;
-            for (int i = 1; i <= pages; i++) {
-                System.out.println(getPageClient(Cliente.criaClienteList(), i, pageSize));
-                Thread.sleep(3000);
-            } */
         if (tipoRelatorio == 1) {
             System.out.println("Digite o CPF para relatórios de cliente desejado");
             String busca = in.nextLine();
@@ -54,32 +49,14 @@ public class MenuRelatorios {
         } else if (tipoRelatorio == 6) {
             System.out.printf("Valor médio em compras: %.2f%n", new Relatorios().relatorioMediaComprado(hist));
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
-        } else if (tipoRelatorio ==7){
+        } else if (tipoRelatorio == 7) {
+            new FiltrarCliente().listaClientes(clientes, 1);
+            escolhaRelatorio(usuario, carrinho, est, hist, clientes);
+        } else if (tipoRelatorio ==8){
             new MenuInicial().menu(usuario, carrinho, est, hist, clientes);
         } else {
             System.out.println("Escolha uma das opções");
             escolhaRelatorio(usuario, carrinho, est, hist, clientes);
         }
     }
-
-
-
-
-
-
-    // Remember to use iterator with size() to iterate through a list
-    public static List<Cliente> getPageClient(List<Cliente> clientes, int page, int pageSize) {
-        if(pageSize <= 0 || page <= 0) {
-            throw new IllegalArgumentException("invalid page size: " + pageSize);
-        }
-
-        int fromIndex = (page - 1) * pageSize;
-        if(clientes == null || clientes.size() <= fromIndex){
-            return Collections.emptyList();
-        }
-
-        return clientes.subList(fromIndex, Math.min(fromIndex + pageSize, clientes.size()));
-    }
-
-
 }

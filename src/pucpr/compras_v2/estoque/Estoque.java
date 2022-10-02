@@ -40,6 +40,8 @@ public class Estoque {
         return estoque;
     }
 
+
+
     public Map<Produto, Integer> getItensEstoque() {
         return itensEstoque;
     }

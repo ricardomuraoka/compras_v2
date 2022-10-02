@@ -4,7 +4,7 @@ import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Produto;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
-import pucpr.compras_v2.usuarios.Filtrar;
+import pucpr.compras_v2.usuarios.FiltrarCliente;
 
 import java.util.List;
 import java.util.Map;
@@ -62,10 +62,10 @@ public class Relatorios {
      * @param clientes a client list which will be used to generate a report
      * @param cpf      the String that will be used to filter a client
      * @return         a report report with the total value of purchases made by a client
-     * @see            Filtrar
+     * @see            FiltrarCliente
      */
     public double relatorioTotalComprasCliente(List<Cliente> clientes, String cpf){
-        var cliente = new Filtrar().filtrarCpf(clientes, cpf);
+        var cliente = new FiltrarCliente().filtrarCpf(clientes, cpf);
         var carrinhos = cliente.getCarrinhoCliente();
 
         double total = 0;
@@ -82,10 +82,10 @@ public class Relatorios {
      * @param clientes a client list which will be used to generate a report
      * @param cpf      the String that will be used to filter a client
      * @return         a report with the total number of purchases by a client
-     * @see            Filtrar
+     * @see            FiltrarCliente
      */
     public int relatorioNumeroComprasCliente(List<Cliente> clientes, String cpf) {
-        var cliente = new Filtrar().filtrarCpf(clientes, cpf);
+        var cliente = new FiltrarCliente().filtrarCpf(clientes, cpf);
         var carrinhos = cliente.getCarrinhoCliente();
 
         int i = 0;
@@ -100,12 +100,12 @@ public class Relatorios {
      * @param clientes a client list which will be used to generate a report
      * @param cpf      the String that will be used to filter a client
      * @return         a report with the average value of purchases bye a specific client
-     * @see            Filtrar
+     * @see            FiltrarCliente
      */
     public double relatorioMediaCompradoCliente(List<Cliente> clientes, String cpf) throws ArithmeticException {
         double media;
         try {
-            var cliente = new Filtrar().filtrarCpf(clientes, cpf);
+            var cliente = new FiltrarCliente().filtrarCpf(clientes, cpf);
             var carrinhos = cliente.getCarrinhoCliente();
 
             double total = 0;

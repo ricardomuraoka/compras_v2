@@ -2,6 +2,7 @@ package pucpr.compras_v2.helpers;
 
 import pucpr.compras_v2.carrinho.CarrinhoDeCompras;
 import pucpr.compras_v2.estoque.Estoque;
+import pucpr.compras_v2.estoque.FiltrarProdutos;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
 import pucpr.compras_v2.usuarios.Usuario;
@@ -15,11 +16,6 @@ import static pucpr.compras_v2.usuarios.Cliente.criaClienteList;
 
 
 public class MenuCompras {
-
-
-    public MenuCompras() {
-
-    }
 
     public void menuCompras(Usuario usuario, CarrinhoDeCompras carrinho, Estoque est, Historico hist, List<Cliente> clientes) throws InterruptedException {
         Scanner in = new Scanner(System.in);
@@ -37,7 +33,7 @@ public class MenuCompras {
             case 1 -> {
                 System.out.println("Qual produto deseja buscar?");
                 String buscaProduto = in.nextLine();
-                CarrinhoDeCompras.buscaProduto(buscaProduto);
+                System.out.println(new FiltrarProdutos().filtrarProdutos(est, buscaProduto));
                 new MenuCompras().menuCompras(usuario, carrinho, est, hist, clientes);
             }
             case 2 -> {
