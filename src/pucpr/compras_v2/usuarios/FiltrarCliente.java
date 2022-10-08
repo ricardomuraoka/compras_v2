@@ -78,7 +78,6 @@ public class FiltrarCliente {
     }
 
 
-    // Remember to use iterator with size() to iterate through a list
     public List<Cliente> getPageClient(List<Cliente> clientes, int page, int pageSize) {
         if(pageSize <= 0 || page <= 0) {
             throw new IllegalArgumentException("invalid page size: " + pageSize);

@@ -59,7 +59,7 @@ public class CarrinhoDeCompras {
         }
     }
 
-    public static Double totalCompras(CarrinhoDeCompras car) {
+    public  Double totalCompras(CarrinhoDeCompras car) {
         double total = 0;
         for (Map.Entry<Produto, Integer> entry : car.getProdutosNoCarrinho().entrySet()) {
             total += entry.getKey().getPreco() * entry.getValue();
@@ -74,7 +74,7 @@ public class CarrinhoDeCompras {
         if (car.getProdutosNoCarrinho().size() == 0) {
             System.out.println("Carrinho vazio, nada para mostrar");
             Thread.sleep(3000);
-            new MenuCompras().menuCompras(car.getClienteCarrinho(), null, est, hist, clientes);
+            new MenuCompras().menuCompras(car.getClienteCarrinho(), new CarrinhoDeCompras(logado), est, hist, clientes);
         } else {
             for (Map.Entry<Produto, Integer> produtosCarrinho : car.getProdutosNoCarrinho().entrySet()) {
                 int qtdeProdutoCarrinho = produtosCarrinho.getValue();
@@ -118,7 +118,7 @@ public class CarrinhoDeCompras {
     public String toString() {
         String carrinho;
         if (produtosNoCarrinho.size() == 0) {
-            carrinho = String.format("%nCliente: %s Valor Total: R$%f%nCarrinho Vazio", clienteCarrinho, totalCompras);
+            carrinho = String.format("%nCliente: %s Valor Total: R$%.2f%nCarrinho Vazio", clienteCarrinho, totalCompras);
         } else {
             carrinho = new StringBuilder().append(String.format("%nCliente: %sValor Total: R$%.2f%nCarrinho: ", clienteCarrinho, totalCompras))
                     .append(produtosNoCarrinho()).toString();

@@ -3,6 +3,7 @@ package pucpr.compras_v2.helpers;
 import pucpr.compras_v2.estoque.Estoque;
 import pucpr.compras_v2.historico.Historico;
 import pucpr.compras_v2.usuarios.Cliente;
+import pucpr.compras_v2.usuarios.FiltrarCliente;
 
 
 import java.util.InputMismatchException;
@@ -31,17 +32,13 @@ public class Cadastro {
         System.out.println("Insira a cidade onde você mora: ");
         String cidadeUsuario = in.nextLine();
         novo.setCidade(cidadeUsuario);
-        adicionaCliente(novo, clientes);
-        trocaUsuario(est, hist, clientes);
-    }
-
-    public void adicionaCliente(Cliente novo, List<Cliente> clientes) {
-        if (clientes.contains(novo)) {
+        if (!clientes.contains(novo)) {
             System.out.println("Este cliente já existe");
-
+            trocaUsuario(est, hist, clientes);
         } else {
             clientes.add(novo);
         }
+        trocaUsuario(est, hist, clientes);
     }
 
 

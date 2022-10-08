@@ -5,3 +5,5 @@ H
 .idea/dictionaries/3.xml,9\6\966d3e36ebadc7b8d66ab31e651f08a904306f35
 O
 src/pucpr/compras_v2/Sobre.java,2\1\21d6d93b26114bdd72a5bd75cc62f1c5607d92f2
+N
+src/pucpr/compras_v2/Main.java,7\b\7bb5aa8b8ca1b98a952ff05229907dd2ce0f02f2
