@@ -3,7 +3,7 @@
 ## Vamos desenvolver um pequeno sistema de loja. O tema da loja é livre (supermercado, loja de roupas, de games, etc).
 
 
-# [Vídeo do Projeto](https://)
+# [Vídeo do Projeto](https://youtu.be/w4pcy3YI3Kg)
 
 # Módulos
 ## Login
