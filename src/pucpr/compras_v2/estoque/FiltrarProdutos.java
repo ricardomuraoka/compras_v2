@@ -18,7 +18,9 @@ public class FiltrarProdutos {
     }
 
     public void listaProdutosFiltrados(Estoque est, String produto) {
-        var estoqueFiltrado = est.getItensEstoque().entrySet().stream()
+        var estoqueFiltrado = est.getItensEstoque()
+                .entrySet()
+                .stream()
                 .filter(prod -> prod.getKey().getNome().contains(produto))
                 .toList();
 

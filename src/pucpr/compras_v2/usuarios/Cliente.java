@@ -80,6 +80,14 @@ public class Cliente extends Usuario {
         );
     }
 
+    public boolean equals(Cliente a) {
+        boolean result = false;
+        if (this.getCpf() == a.getCpf()) {
+            result = true;
+        }
+        return result;
+    }
+
 
 
     @Override

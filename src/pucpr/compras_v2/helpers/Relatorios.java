@@ -61,7 +61,7 @@ public class Relatorios {
      *
      * @param clientes a client list which will be used to generate a report
      * @param cpf      the String that will be used to filter a client
-     * @return         a report report with the total value of purchases made by a client
+     * @return         a report with the total value of purchases made by a client
      * @see            FiltrarCliente
      */
     public double relatorioTotalComprasCliente(List<Cliente> clientes, String cpf){
